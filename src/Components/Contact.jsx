@@ -164,25 +164,25 @@ const Contact = () => {
                         <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4 text-base-content">Full Name</label>
                         <input
                             type="text" name="name" required
-                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-2xl md:rounded-3xl bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 placeholder:opacity-30 text-sm md:text-base"
+                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-xl mt-2 bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 placeholder:opacity-30 text-sm md:text-base"
                             placeholder="John Doe"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4 text-base-content">Return Signal</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4 text-base-content">Return Email</label>
                         <input
                             type="email" name="email" required
-                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-2xl md:rounded-3xl bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 placeholder:opacity-30 text-sm md:text-base"
+                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-xl mt-2 bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 placeholder:opacity-30 text-sm md:text-base"
                             placeholder="john@example.com"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4 text-base-content">The Payload</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4 text-base-content">Message</label>
                         <textarea
                             name="message" required rows="4"
-                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-2xl md:rounded-3xl bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 resize-none placeholder:opacity-30 text-sm md:text-base"
+                            className="w-full px-5 py-3.5 md:px-6 md:py-4 rounded-xl mt-2 bg-base-content/5 border border-base-content/10 text-base-content focus:border-primary/50 focus:bg-base-content/10 focus:outline-none transition-all duration-300 resize-none placeholder:opacity-30 text-sm md:text-base"
                             placeholder="Engineering requirement details..."
                         ></textarea>
                     </div>
@@ -191,7 +191,7 @@ const Contact = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         disabled={isSending}
-                        className="w-full py-4 md:py-5 rounded-2xl md:rounded-3xl bg-primary text-primary-content font-black text-base md:text-lg shadow-xl shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-50"
+                        className="w-full py-4 md:py-5 rounded-xl bg-primary text-primary-content font-black text-base md:text-lg shadow-xl shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-50"
                     >
                         {isSending ? 'Transmitting...' : 'Send Message'}
                         <Send size={18} className="md:w-5 md:h-5" />

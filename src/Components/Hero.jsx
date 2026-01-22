@@ -35,9 +35,8 @@ const Hero = () => {
 
   const [typeEffect] = useTypewriter({
     words: [
-      "MERN Stack Developer",
-      "Full-Stack Architect",
-      "CSE Student @ DIU",
+      "Mern Stack Developer",
+      "Computer Science Student @ DIU",
     ],
     loop: {},
     typeSpeed: 80,
