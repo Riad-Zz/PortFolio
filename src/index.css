@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "coffee";
+  default: true;
+  --color-primary: #2C6E49;   /* Dark Green */
+  --color-secondary: #97BC62; /* Light Green Accent */
+  --color-accent: #FFB400;    /* Amber for highlights */
+  --color-neutral: #14213D;   /* Deep Blue-Gray */
+  --color-base-100: #0B0C10;  /* Dark Base */
+}
+
+@plugin "daisyui/theme" {
+  name: "nord";
+  default: false;
+  --color-primary: #D2691E;   /* Chocolate Brown */
+  --color-secondary: #F4A261; /* Soft Orange */
+  --color-accent: #E9C46A;    /* Warm Yellow */
+  --color-neutral: #8C8C8C;   /* Medium Gray */
+  --color-base-100: #FFF8F0;  /* Cream Base */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Ensure the HTML doesn't block the background */
+    background-color: var(--color-base-100); 
+  }
+
+  body {
+    /* Critical: Set body to transparent so fixed BG shows through */
+    background-color: transparent !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Force the React root to be transparent */
+  #root {
+    background-color: transparent !important;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
+
+@layer utilities {
+  /* Enhanced Glass for better visibility with Dynamic BG */
+  .glass-card {
+    @apply bg-base-100/10 backdrop-blur-3xl border border-white/10 shadow-2xl;
+    -webkit-backdrop-filter: blur(60px);
+  }
+
+  /* Custom utility to fix layout-shift during GSAP animations */
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+
+  /* Professional Noise Overlay */
+  .bg-noise {
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    filter: contrast(150%) brightness(100%);
+  }
+}
