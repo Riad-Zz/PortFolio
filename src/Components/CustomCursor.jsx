@@ -1,65 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const CustomCursor = () => {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const trailRef = useRef([]);
+  const trailCount = 6; // number of dots in the trail
 
   useEffect(() => {
-    const dot = dotRef.current;
-    const ring = ringRef.current;
+    // Only enable on desktop
+    if (window.innerWidth < 1024) return;
 
-    // Center everything
-    gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
+    const dots = trailRef.current;
 
-    // Dot moves instantly — super precise
-    const dotX = gsap.quickTo(dot, "x", { duration: 0.1, ease: "none" });
-    const dotY = gsap.quickTo(dot, "y", { duration: 0.1, ease: "none" });
+    // Initialize dots
+    dots.forEach((dot) => {
+      gsap.set(dot, { xPercent: -50, yPercent: -50 });
+    });
 
-    // Ring follows with a smooth lag — cool hover effect
-    const ringX = gsap.quickTo(ring, "x", { duration: 0.5, ease: "power3.out" });
-    const ringY = gsap.quickTo(ring, "y", { duration: 0.5, ease: "power3.out" });
+    const moveTrail = (e) => {
+      let x = e.clientX;
+      let y = e.clientY;
 
-    const moveCursor = (e) => {
-      dotX(e.clientX);
-      dotY(e.clientY);
-      ringX(e.clientX);
-      ringY(e.clientY);
+      dots.forEach((dot, i) => {
+        const delay = i * 0.05;
+        gsap.to(dot, {
+          x,
+          y,
+          duration: 0.2 + delay,
+          ease: "power2.out",
+        });
+        // Reduce size & opacity for trailing dots
+        gsap.to(dot, {
+          scale: 1 - i * 0.1,
+          opacity: 1 - i * 0.15,
+          duration: 0.2,
+          ease: "power2.out",
+        });
+      });
     };
 
-    const handleHover = (e) => {
-      // Check if hovering over clickable stuff
-      const isHoverable = e.target.closest("button, a, .cursor-pointer, .project-card");
-      setIsHovering(!!isHoverable);
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleHover);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleHover);
-    };
+    window.addEventListener("mousemove", moveTrail);
+    return () => window.removeEventListener("mousemove", moveTrail);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block">
-      {/* Tiny dot — your mouse buddy */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full"
-      />
-
-      {/* Ring that chills behind the dot and reacts on hover */}
-      <div
-        ref={ringRef}
-        className={`fixed top-0 left-0 rounded-full border border-primary transition-all duration-300 ease-out ${
-          isHovering 
-          ? "w-6 h-6 opacity-100 border-2" // Saying hello to buttons and links
-          : "w-10 h-10 opacity-30"         // Just vibing around normally
-        }`}
-      />
+      {[...Array(trailCount)].map((_, i) => (
+        <div
+          key={i}
+          ref={(el) => (trailRef.current[i] = el)}
+          className="absolute w-3 h-3 bg-primary rounded-full pointer-events-none"
+          style={{ opacity: 0.8 }}
+        />
+      ))}
     </div>
   );
 };
